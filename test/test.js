@@ -21,7 +21,7 @@ describe('Push', function() {
   it('should run test 10 times and return PASSED each time', function(done) {
     setTimeout(done, 120000);
     var cmd = spawn(__dirname + '/push_10.sh', [
-        'http://localhost:' + server.address().port + '/beep.git'
+        'http://localhost:' + 5255 + '/beep.git'
     ]);
     cmd.on('close', function() {
       assert.equal(10, output.length);
