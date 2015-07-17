@@ -4,4 +4,5 @@ mkdir -p $dir
 cd $dir
 git clone https://github.com/knspriggs/cicada.git
 cd cicada
+echo "Pushing to master..."
 git push "$1" master

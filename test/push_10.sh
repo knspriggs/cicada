@@ -6,5 +6,6 @@ do
   cd $dir
   git clone https://github.com/knspriggs/cicada.git
   cd cicada
+  echo "Pushing to master ($1)..."
   git push "$1" master
 done
