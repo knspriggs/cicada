@@ -3,9 +3,7 @@ node_js:
   - 0.8
   - 0.11
   - 0.12
-addons:
-  apt:
-    packages:
-    - git
-before_script: node test/ci.js &
+before_script:
+  - node test/ci.js &
+  - sleep 2
 script: mocha
