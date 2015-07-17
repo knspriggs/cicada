@@ -8,7 +8,7 @@ describe('Push', function() {
         'http://localhost:' + 5255 + '/beep.git'
     ]);
     cmd.on('data', function(data) {
-      console.log('push.sh -->', data);
+      console.log('push.sh -->' + data);
     });
     cmd.on('close', function(code) {
       assert.equal(0, code);
@@ -22,7 +22,7 @@ describe('Push', function() {
         'http://localhost:' + 5255 + '/beep.git'
     ]);
     cmd.on('data', function(data) {
-      console.log('push_10.sh -->', data);
+      console.log('push_10.sh -->' + data);
     });
     cmd.on('close', function(code) {
       assert.equal(0, code);
