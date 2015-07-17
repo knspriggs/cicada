@@ -23,12 +23,9 @@ describe('Push', function() {
     var cmd = spawn(__dirname + '/push_10.sh', [
         'http://localhost:' + 5255 + '/beep.git'
     ]);
-    cmd.on('close', function() {
-      assert.equal(10, output.length);
-      for (var i=0; i<10; i++) {
-        assert.equal('PASSED', output[i]);
-        done();
-      }
+    cmd.on('close', function(code) {
+      assert.equal(0, code);
+      done();
     });
   });
 
