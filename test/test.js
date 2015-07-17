@@ -7,6 +7,9 @@ describe('Push', function() {
     var cmd = spawn(__dirname + '/push.sh', [
         'http://localhost:' + 5255 + '/beep.git'
     ]);
+    cmd.on('data', function(data) {
+      console.log('push.sh -->', data);
+    });
     cmd.on('close', function(code) {
       assert.equal(0, code);
       done();
@@ -18,6 +21,9 @@ describe('Push', function() {
     var cmd = spawn(__dirname + '/push_10.sh', [
         'http://localhost:' + 5255 + '/beep.git'
     ]);
+    cmd.on('data', function(data) {
+      console.log('push_10.sh -->', data);
+    });
     cmd.on('close', function(code) {
       assert.equal(0, code);
       done();
