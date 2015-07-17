@@ -1,32 +1,35 @@
-// simple server setup
-var http = require('http');
-var cicada = require('../');
-
-var output = [];
-
-var ci = cicada('/tmp/beep');
-ci.on('commit', function (commit) {
-    commit.run('test').on('exit', function (code) {
-        var status = code === 0 ? 'PASSED' : 'FAILED';
-        console.log(commit.hash + ' ' + status);
-        output.push(status);
-    });
-});
-
-var server = http.createServer(ci.handle);
-server.listen(5255);
-
-
-// testing
 var assert = require("assert");
 var spawn = require('child_process').spawn;
+
+//beforeEach(function() {
+//  output = [];
+//});
+
+
 describe('Push', function() {
-  it('should run test and return PASSED', function() {
+  this.timeout(120000);
+  it('should run test and return PASSED', function(done) {
     var cmd = spawn(__dirname + '/push.sh', [
-        'http://localhost:' + server.address().port + '/beep.git'
+        'http://localhost:' + 5255 + '/beep.git'
     ]);
-    cmd.on('exit', function() {
-      assert.equal('PASSED', output[-1]);
+    cmd.on('close', function(code) {
+      assert.equal(0, code);
+      done();
     });
   });
+
+  it('should run test 10 times and return PASSED each time', function(done) {
+    setTimeout(done, 120000);
+    var cmd = spawn(__dirname + '/push_10.sh', [
+        'http://localhost:' + server.address().port + '/beep.git'
+    ]);
+    cmd.on('close', function() {
+      assert.equal(10, output.length);
+      for (var i=0; i<10; i++) {
+        assert.equal('PASSED', output[i]);
+        done();
+      }
+    });
+  });
+
 });
